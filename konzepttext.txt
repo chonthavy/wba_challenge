@@ -1,0 +1,18 @@
+WBA Challenge - Konzeptseite
+
+Vorwort:
+
+Für die WBA - Challenge wurde thematisch passend in der Gruppe eine Idee ausgearbeitet, welches unter den gegebenen Umständen realisierbar ist. Hierbei kam chronologisch gesehen als erste Idee auf, mithilfe einer API eine Einkaufsmöglicht für den Nutzer zu ermöglichen. Dabei standen mehrere API's zur Auswahl, welche aber aufgrund fehlender Kenntnisse zu schwer zu implentieren erschienen. Deshalb wurde als Gruppe eine zweite Idee überlegt, welche einfacher realisierbar und trotzdem Nutzvoll für den Endverbraucher ist.
+
+Grundkonzept:
+
+Das Konzept für die WBA - Challenge ist eine Energieverbrauchanzeige, über die einzelnen Bauteile im Tesla, welche durch Graphen dargestellt werden. Hierbei wird die D3 API genutzt, um die grafische Darstellung der Daten zu ermöglichen. Als Grundstein dabei, nutzt die Gruppe das bereitgestellte Mockup und Design. Dieses wird über den Tag hinaus so bearbeitet werden, das die Idee darin anschaubar eingebettet wird.
+
+Features:
+
+Das Konzept soll nachfolgende Eigenschaften enthalten:
+
+- Dem Nutzer wird die Möglichkeit gegeben, einzelne Verbraucher mithilfe von Optionen zu sortieren und filtern
+- Der Verbrauch wird in einem festem Zeitintervall aktualisiert
+- Die grafische Darstellung wird skalierbar sein
+- Als Livedemo werden zufällig generierte Parameter zur Anschauung des Designs genutzt
