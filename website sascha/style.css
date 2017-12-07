@@ -37,13 +37,15 @@ html {
     float: left;
     
     background-color:  blue;
-    background: url(images/logo.png);
+    background: url(images/Tesla_Motors.svg);
     background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .challengefont {
     float: left;
-    color: red;
+    color: rgb(233, 33, 39);
     padding-top: 40px;
     font-weight: 700;
 }
@@ -69,7 +71,7 @@ html {
 
 #menu a:hover {
     color: grey;
-    border-top: solid red 5px;
+    border-top: solid rgb(233, 33, 39) 5px;
 }
 
 /* BANNER */
