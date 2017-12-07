@@ -99,8 +99,9 @@ html {
 
 /* FOOTER */
 footer {
-    padding-top: 60px;
+    padding:20px 20px;
     width: 100%;
+    background-color:whitesmoke;
 }
 
 /*Additional Styles*/
@@ -180,4 +181,5 @@ text-decoration: none;
     display:list-item;
 
 }
+    
    
