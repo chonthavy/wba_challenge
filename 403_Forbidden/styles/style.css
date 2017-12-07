@@ -142,4 +142,20 @@ h2, h3, h4, h5, h6 {
     margin-bottom: 10px;
 }
 
-/*Liststyle*/
+/*Mitarbeiter*/
+.mitarbeiter li {
+  background-color: grey;
+  list-style-position: outside;
+  display: inline-block;
+  margin: 40px 40px;
+  text-align: center;
+}
+
+.mitarbeiter {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.mitarbeiter li img {
+  width: 100%;
+}
