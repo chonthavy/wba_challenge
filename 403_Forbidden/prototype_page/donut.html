@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="styles/generated/screen.css">
+
+<!-- Font -->
+<link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700" rel="stylesheet">
+<style>
+
+.arc text {
+  font: 12px sans-serif;
+  text-anchor: middle;
+}
+
+.arc path {
+  stroke: #fff;
+}
+
+</style>
+</head><body>
+  <main class="screen" id="screen">
+
+      <section class="screen__top-area">
+          <div class="top-area__upper-content">
+              <div id="sidebar" class="upper-content__left" data-trigger="fullscreenTarget">
+                  <img src="images/tsl/tsl-sidebar-tr.svg" alt="sidebar" id="tsl-sidebar">
+              </div>
+              <a href="screen-layout-4er.html">Darstellung ändern</a>
+              <div class="upper-content__right" data-trigger="fullscreen" data-content-upper>
+
+                  <div class="screen__content tsl-fixed" draggable="true" data-trigger="fullscreenChild" data-screen-content>
+
+
+                    <script  src="d3/d3_donut.js"></script>
+                    <script>
+
+                    var width = 600,
+                        height = 500,
+                        radius = Math.min(width, height) / 2;
+
+                    var color = d3.scale.ordinal()
+                        .range([ "#17a2b8","#007BE4","#6610f2","#e6e6e6"]);
+
+                    var arc = d3.svg.arc()
+                        .outerRadius(radius - 0)
+                        .innerRadius(radius -160);
+
+                    var pie = d3.layout.pie()
+                        .sort(null)
+                        .value(function(d) { return d.value; });
+
+                    var svg = d3.select("body div").append("svg")
+                        .attr("width", width)
+                        .attr("height", height)
+                        .append("g")
+                        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+                    d3.csv("donut-data.csv", type, function(error, data) {
+                      if (error) throw error;
+
+                      var g = svg.selectAll(".arc")
+                          .data(pie(data))
+                        .enter().append("g")
+                          .attr("class", "arc");
+
+                      g.append("path")
+                          .attr("d", arc)
+                          .style("fill", function(d) { return color(d.data.device); });
+
+                      g.append("text")
+                          .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+                          .attr("dy", ".35em")
+                          .text(function(d) { return d.data.device+"\n"+d.data.value+"kw/h"; });
+                    });
+
+                    function type(d) {
+                      d.value = +d.value;
+                      return d;
+                    }
+
+                    </script>
+
+
+                  </div>
+              </div>
+          </div>
+              <ul class="top-area__main-control">
+                <li class="main-control__switch main-control__switch--model3"><img src="images/main-control-bar/model3-icon.svg" alt="switch model 3"></li>
+                <li class="main-control__switch main-control__switch--defrost"><img src="images/main-control-bar/defrost-icon.svg" alt="switch defrost"></li>
+                <li class="main-control__switch main-control__switch--heater"><img src="images/main-control-bar/heater-icon.svg" alt="switch heater"></li>
+                <li class="main-control__switch main-control__switch--seat"><img src="images/main-control-bar/seat-left-icon.svg" alt="switch seat left"></li>
+                <li class="main-control__switch main-control__switch--temp-left"><img src="images/main-control-bar/temp-icon.svg" alt="switch templ left"></li>
+                <li class="main-control__switch main-control__switch--fan"><img src="images/main-control-bar/fan-level-icon.svg" alt="switch fan control"></li>
+                <li class="main-control__switch main-control__switch--temp-right"><img src="images/main-control-bar/temp-icon.svg" alt="switch tempreature"></li>
+                <li class="main-control__switch main-control__switch--seat"><img src="images/main-control-bar/seat-right-icon.svg" alt="switch seat right"></li>
+                <li class="main-control__switch main-control__switch--music" data-control-music><img src="images/main-control-bar/music-icon.svg" alt="switch music"></li>
+                <li class="main-control__switch main-control__switch--phone"><img src="images/main-control-bar/phone-icon.svg" alt="switch phone"></li>
+                <li class="main-control__switch main-control__switch--volume"><img src="images/main-control-bar/volume-icon.svg" alt="switch volume"></li>
+              </ul>
+      </section>
+  </main>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+
+  <!-- Drag & Drop zwischen den Screens -->
+  <script src="scripts/tesla-dnd.js"></script>
+
+  <!-- Verschiedene Layouts via Query String -->
+  <script src="scripts/tesla-layout-switch.js"></script>
+
+  <!-- Verschiedene Layouts via Query String -->
+
+
+</body>
+</html>

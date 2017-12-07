@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    
+    <!-- Anfang vom Diagrammskript -->
+    
+    <!-- Source -->
+    <!-- https://bl.ocks.org/mbostock/3884955 -->
+    
+    <!-- Barstyle -->
+    
+    <link rel="stylesheet" href="styles/bar.css">
+    
+    <style>
+
+        .axis--x path {
+          display: none;
+        }
+
+        .line {
+          fill: none;
+          stroke: steelblue;
+          stroke-width: 4px;
+        }
+        
+    </style>
+        <svg width="550" height="400" class="bar"></svg>
+        <script src="d3/d3.min.js"></script>
+        <script>
+
+        var svg = d3.select("svg"),
+            margin = {top: 20, right: 80, bottom: 30, left: 50},
+            width = svg.attr("width") - margin.left - margin.right,
+            height = svg.attr("height") - margin.top - margin.bottom,
+            g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        var parseTime = d3.timeParse("%Y%m%d");
+
+        var x = d3.scaleTime().range([0, width]),
+            y = d3.scaleLinear().range([height, 0]),
+            z = d3.scaleOrdinal(d3.schemeCategory10);
+
+        var line = d3.line()
+            .curve(d3.curveBasis)
+            .x(function(d) { return x(d.date); })
+            .y(function(d) { return y(d.Verbrauch); });
+
+        d3.tsv("data.tsv", type, function(error, data) {
+          if (error) throw error;
+
+          var verbrauchobjekt = data.columns.slice(1).map(function(id) {
+            return {
+              id: id,
+              values: data.map(function(d) {
+                return {date: d.date, Verbrauch: d[id]};
+              })
+            };
+          });
+
+          x.domain(d3.extent(data, function(d) { return d.date; }));
+
+          y.domain([
+            d3.min(verbrauchobjekt, function(c) { return d3.min(c.values, function(d) { return d.Verbrauch; }); }),
+            d3.max(verbrauchobjekt, function(c) { return d3.max(c.values, function(d) { return d.Verbrauch; }); })
+          ]);
+
+          z.domain(verbrauchobjekt.map(function(c) { return c.id; }));
+
+          g.append("g")
+              .attr("class", "axis axis--x")
+              .attr("transform", "translate(0," + height + ")")
+            .style('fill', 'white')
+              .call(d3.axisBottom(x));
+
+          g.append("g")
+              .attr("class", "axis axis--y")
+              .call(d3.axisLeft(y))
+              .append("text")
+              .style('fill', 'white')
+              .attr("transform", "rotate(-90)")
+              .attr("y", 6)
+              .attr("dy", "0.71em")
+              .text("Verbrauch, Kilowatt/h");
+              
+          var verbraucher = g.selectAll(".verbraucher")
+            .data(verbrauchobjekt)
+            .enter().append("g")
+          .style('fill', 'white')
+            .attr("class", "verbraucher");
+            
+
+          verbraucher.append("path")
+              .attr("class", "line")
+              .attr("d", function(d) { return line(d.values); })
+              .style("stroke", function(d) { return z(d.id); });
+
+          verbraucher.append("text")
+              .datum(function(d) { return {id: d.id, value: d.values[d.values.length - 1]}; })
+              .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.Verbrauch) + ")"; })
+              .attr("x", 3)
+              .attr("dy", "0.35em")
+              .style("font", "16px sans-serif")
+              .style('fill', 'white')
+              .text(function(d) { return d.id; });
+        });
+
+        function type(d, _, columns) {
+          d.date = parseTime(d.date);
+          for (var i = 1, n = columns.length, c; i < n; ++i) d[c = columns[i]] = +d[c];
+          return d;
+        }
+
+        </script>
+    
+    <!--Diagrammskript Ende-->
+    
+    <title>Tesla Screen Prototyp</title>
+    
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="styles/generated/screen.css">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700" rel="stylesheet">
+</head>
+
+<body>
+    <main class="screen" id="screen">
+
+        <section class="screen__top-area">
+            <div class="top-area__upper-content">
+                <div id="sidebar" class="upper-content__left" data-trigger="fullscreenTarget">
+                    <img src="images/tsl/tsl-sidebar-tr.svg" alt="sidebar" id="tsl-sidebar">
+                </div>
+                <div class="upper-content__right" data-trigger="fullscreen" data-content-upper>
+                    <div class="screen__content tsl-fixed" draggable="true" data-trigger="fullscreenChild" data-screen-content>
+                    </div>
+                </div>
+            </div>
+                <ul class="top-area__main-control">
+                  <li class="main-control__switch main-control__switch--model3"><img src="images/main-control-bar/model3-icon.svg" alt="switch model 3"></li>
+                  <li class="main-control__switch main-control__switch--defrost"><img src="images/main-control-bar/defrost-icon.svg" alt="switch defrost"></li>
+                  <li class="main-control__switch main-control__switch--heater"><img src="images/main-control-bar/heater-icon.svg" alt="switch heater"></li>
+                  <li class="main-control__switch main-control__switch--seat"><img src="images/main-control-bar/seat-left-icon.svg" alt="switch seat left"></li>
+                  <li class="main-control__switch main-control__switch--temp-left"><img src="images/main-control-bar/temp-icon.svg" alt="switch templ left"></li>
+                  <li class="main-control__switch main-control__switch--fan"><img src="images/main-control-bar/fan-level-icon.svg" alt="switch fan control"></li>
+                  <li class="main-control__switch main-control__switch--temp-right"><img src="images/main-control-bar/temp-icon.svg" alt="switch tempreature"></li>
+                  <li class="main-control__switch main-control__switch--seat"><img src="images/main-control-bar/seat-right-icon.svg" alt="switch seat right"></li>
+                  <li class="main-control__switch main-control__switch--music" data-control-music><img src="images/main-control-bar/music-icon.svg" alt="switch music"></li>
+                  <li class="main-control__switch main-control__switch--phone"><img src="images/main-control-bar/phone-icon.svg" alt="switch phone"></li>
+                  <li class="main-control__switch main-control__switch--volume"><img src="images/main-control-bar/volume-icon.svg" alt="switch volume"></li>
+                </ul>
+        </section>
+    </main>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+
+    <!-- Drag & Drop zwischen den Screens -->
+    <script src="scripts/tesla-dnd.js"></script>
+
+    <!-- Verschiedene Layouts via Query String -->
+    <script src="scripts/tesla-layout-switch.js"></script>
+    
+    <!-- Verschiedene Layouts via Query String -->
+    
+</body>
