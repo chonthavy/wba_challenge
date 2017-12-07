@@ -13,10 +13,6 @@
     <link rel="stylesheet" href="styles/bar.css">
     
     <style>
-        
-        .axis {
-            color: white;
-        }
 
         .axis--x path {
           display: none;
@@ -74,22 +70,25 @@
           g.append("g")
               .attr("class", "axis axis--x")
               .attr("transform", "translate(0," + height + ")")
+            .style('fill', 'white')
               .call(d3.axisBottom(x));
 
           g.append("g")
               .attr("class", "axis axis--y")
               .call(d3.axisLeft(y))
-            .append("text")
+              .append("text")
+              .style('fill', 'white')
               .attr("transform", "rotate(-90)")
               .attr("y", 6)
               .attr("dy", "0.71em")
-              .attr("fill", "#000")
               .text("Verbrauch, Kilowatt/h");
-
+              
           var verbraucher = g.selectAll(".verbraucher")
             .data(verbrauchobjekt)
             .enter().append("g")
-              .attr("class", "verbraucher");
+          .style('fill', 'white')
+            .attr("class", "verbraucher");
+            
 
           verbraucher.append("path")
               .attr("class", "line")
@@ -101,8 +100,8 @@
               .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.Verbrauch) + ")"; })
               .attr("x", 3)
               .attr("dy", "0.35em")
-              .style("font", "10px sans-serif")
-              .attr("color", "white")
+              .style("font", "16px sans-serif")
+              .style('fill', 'white')
               .text(function(d) { return d.id; });
         });
 
