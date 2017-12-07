@@ -40,7 +40,7 @@ var line = d3.line()
 d3.tsv("data.tsv", type, function(error, data) {
   if (error) throw error;
 
-  var cities = data.columns.slice(1).map(function(id) {
+  var verbrauchobjekt = data.columns.slice(1).map(function(id) {
     return {
       id: id,
       values: data.map(function(d) {
@@ -52,11 +52,11 @@ d3.tsv("data.tsv", type, function(error, data) {
   x.domain(d3.extent(data, function(d) { return d.date; }));
 
   y.domain([
-    d3.min(cities, function(c) { return d3.min(c.values, function(d) { return d.Verbrauch; }); }),
-    d3.max(cities, function(c) { return d3.max(c.values, function(d) { return d.Verbrauch; }); })
+    d3.min(verbrauchobjekt, function(c) { return d3.min(c.values, function(d) { return d.Verbrauch; }); }),
+    d3.max(verbrauchobjekt, function(c) { return d3.max(c.values, function(d) { return d.Verbrauch; }); })
   ]);
 
-  z.domain(cities.map(function(c) { return c.id; }));
+  z.domain(verbrauchobjekt.map(function(c) { return c.id; }));
 
   g.append("g")
       .attr("class", "axis axis--x")
@@ -74,7 +74,7 @@ d3.tsv("data.tsv", type, function(error, data) {
       .text("Verbrauch, Kilowatt/h");
 
   var verbraucher = g.selectAll(".verbraucher")
-    .data(cities)
+    .data(verbrauchobjekt)
     .enter().append("g")
       .attr("class", "verbraucher");
 
