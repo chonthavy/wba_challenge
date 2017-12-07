@@ -136,9 +136,9 @@ h1 {
     margin-bottom: 30px;
 }
 
-h2 {
+h2, h3, h4, h5, h6 {
     font-size: 20px;
-    color: #e92027;
+    color: #6a6a6a;
     margin-bottom: 10px;
 }
 
