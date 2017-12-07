@@ -98,12 +98,18 @@ html {
 }
 
 /* FOOTER */
-footer {
-    padding:20px 20px;
-    width: 100%;
-    background-color:whitesmoke;
+.footer {
+  position: static;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #212121;
+    text-align: center;
 }
-
+#pf{
+  color: #e92027;
+}
 /*Additional Styles*/
 
 .boxshadow {
@@ -165,7 +171,7 @@ h2, h3, h4, h5, h6 {
 ul.mitarbeiter {
     content:center;
 
-     
+
 }
 a {
 color:whitesmoke;
@@ -173,13 +179,14 @@ text-decoration: none;
 }
 
 
-@media (max-width: 700px) { 
-    
-    #mitarbeiter li  { 
-    width:100%; 
+@media (max-width: 700px) {
+
+    #mitarbeiter li  {
+    width:100%;
     padding: 20px;
     display:list-item;
 
+<<<<<<< HEAD
 
     }
 #divl{
@@ -189,3 +196,6 @@ text-decoration: none;
     }
     
    
+=======
+}
+>>>>>>> 633e7db18a489c3881970eb3a1122c2fc4e317e5
